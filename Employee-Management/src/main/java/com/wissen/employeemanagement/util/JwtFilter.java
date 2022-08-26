@@ -26,6 +26,12 @@ public class JwtFilter extends OncePerRequestFilter {
 	@Autowired
 	private CustomUserDetailsService customUserDetailsService;
 
+	/**
+	 * This Method will run once before each request , in order to check the JWT
+	 * Token provided as Authorization Header is Valid or not , if it is valid then
+	 * it will authenticate the user Details
+	 *
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {

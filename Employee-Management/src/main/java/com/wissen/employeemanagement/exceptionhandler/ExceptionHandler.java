@@ -13,6 +13,14 @@ import com.wissen.employeemanagement.util.ExceptionHandling;
 @RestControllerAdvice(annotations = RestController.class)
 public class ExceptionHandler {
 
+	/**
+	 * This Method is used for Custom Exception Handling based on signature provided
+	 * in {@link ExceptionHandling}
+	 * 
+	 * @param exception
+	 * @param request
+	 * @return
+	 */
 	@org.springframework.web.bind.annotation.ExceptionHandler(EmployeeManagementAppException.class)
 	@ResponseStatus(value = HttpStatus.NOT_FOUND)
 	public ExceptionHandling exceptionGetter(final EmployeeManagementAppException exception,

@@ -19,6 +19,12 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
+	/**
+	 * This Method is use to register new user to DB and while saving the user to DB
+	 * it will encrypt the password using {@link PasswordEncoder}. If the Password
+	 * and Confirm Password are not matching it will throw Custom Exception
+	 * {@link PasswordMisMatchException}
+	 */
 	@Override
 	public String register(User user) throws EmployeeManagementServiceException {
 		if (StringUtils.equals(user.getPassword(), user.getConfirmPassword())) {
@@ -34,6 +40,11 @@ public class UserServiceImpl implements UserService {
 		throw new PasswordMisMatchException("Passwords didn't match , please verify");
 	}
 
+	/**
+	 * During the user Registration, "isLoggedIn" in User entity field is set to
+	 * "No". This Method is used to update the login status of the user by making
+	 * the isLoggedIn field to "Yes" once the user logged in to system successfully
+	 */
 	@Override
 	public void updateLogInStatus(String name) {
 		User existingUser = userRepository.findByName(name);

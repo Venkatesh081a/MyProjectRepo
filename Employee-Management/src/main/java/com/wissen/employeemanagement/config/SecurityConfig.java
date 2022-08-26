@@ -28,6 +28,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private JwtFilter jwtFilter;
 
+	/**
+	 * This Method is used to authenticate userDetails from the given
+	 * userDetailsService
+	 * 
+	 * @return DaoAuthenticationProvider
+	 */
 	@Bean
 	public DaoAuthenticationProvider authProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -36,22 +42,41 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		return authProvider;
 	}
 
+	/**
+	 * This Method is used to authenticate the details using above specified
+	 * authProvider()
+	 */
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authProvider());
 	}
 
+	/**
+	 * This Method is used to encrypt the password
+	 * 
+	 * @return
+	 */
 	@Bean
 	public PasswordEncoder encoder() {
 		return new BCryptPasswordEncoder();
 	}
 
+	/**
+	 * This Method is used to get the authentication Manager Bean for authentication
+	 *
+	 */
 	@Bean(name = BeanIds.AUTHENTICATION_MANAGER)
 	@Override
 	public AuthenticationManager authenticationManagerBean() throws Exception {
 		return super.authenticationManagerBean();
 	}
 
+	/**
+	 * This Method is used to configure the http end points. Here we are allowing
+	 * the end points "/login" and "/register" and authenticating all the other end
+	 * points
+	 *
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests().antMatchers("/login").permitAll().antMatchers("/register").permitAll()

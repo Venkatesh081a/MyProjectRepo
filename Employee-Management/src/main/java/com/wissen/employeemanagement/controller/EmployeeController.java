@@ -30,7 +30,7 @@ public class EmployeeController {
 	 * This Method is used to create a new employee in DB
 	 * 
 	 * @param employee
-	 * @return
+	 * @return creationStatus
 	 * @throws EmployeeManagementAppException
 	 */
 	@PostMapping("/add")
@@ -43,7 +43,7 @@ public class EmployeeController {
 	 * This Method is used to retrieve the Employee Details based on the given Id
 	 * 
 	 * @param id
-	 * @return
+	 * @return {@link Employee}
 	 * @throws EmployeeManagementAppException
 	 */
 	@GetMapping("/getById/{id}")
@@ -53,15 +53,17 @@ public class EmployeeController {
 	}
 
 	/**
-	 * This Method is used to List all the available Employees from DB
+	 * This Method is used to List all the available Employees from DB along with
+	 * page numbers
 	 * 
 	 * @param pageNo
-	 * @return
+	 * @return {@link List<Employee>}
 	 * @throws EmployeeManagementAppException
 	 */
 	@GetMapping("/getAllEmployees/page/{pageNo}")
 	public ResponseEntity<List<Employee>> getAllEmployees(@PathVariable int pageNo)
 			throws EmployeeManagementAppException {
+		// how many records to display per page
 		int pageSize = 2;
 		Page<Employee> page = employeeService.getAllEmployees(pageNo, pageSize);
 		List<Employee> employeesList = page.getContent();
@@ -72,7 +74,7 @@ public class EmployeeController {
 	 * This Method is used to retrieve the Employee based on the given first_name
 	 * 
 	 * @param firstName
-	 * @return
+	 * @return {@link Employee}
 	 * @throws EmployeeManagementAppException
 	 */
 	@GetMapping("/getByFirstName/{firstName}")
@@ -86,7 +88,7 @@ public class EmployeeController {
 	 * This Method is used to retrieve the Employee based on the given last_name
 	 * 
 	 * @param lastName
-	 * @return
+	 * @return {@link Employee}
 	 * @throws EmployeeManagementAppException
 	 */
 	@GetMapping("/getByLastName/{lastName}")
@@ -101,7 +103,7 @@ public class EmployeeController {
 	 * 
 	 * @param employee
 	 * @param id
-	 * @return
+	 * @return updationStatus
 	 * @throws EmployeeManagementAppException
 	 */
 	@PutMapping("/update/{id}")
@@ -115,7 +117,7 @@ public class EmployeeController {
 	 * This method is used to delete the employee based on the given Id
 	 * 
 	 * @param id
-	 * @return
+	 * @return deletionStatus
 	 * @throws EmployeeManagementAppException
 	 */
 	@DeleteMapping("/delete/{id}")
@@ -129,7 +131,7 @@ public class EmployeeController {
 	 * 
 	 * @param minSal
 	 * @param maxSal
-	 * @return
+	 * @return {@link List<Employee>}
 	 * @throws EmployeeManagementAppException
 	 */
 	@GetMapping("/between/{minSal}/{maxSal}")
@@ -144,7 +146,7 @@ public class EmployeeController {
 	 * input
 	 * 
 	 * @param firstName
-	 * @return
+	 * @return {@link List<Employee>}
 	 * @throws EmployeeManagementAppException
 	 */
 	@GetMapping("/get/firstNameContaining/{firstName}")
@@ -158,7 +160,7 @@ public class EmployeeController {
 	 * This Method is used List all the Employees based on given designation
 	 * 
 	 * @param designation
-	 * @return
+	 * @return {@link List<Employee>}
 	 * @throws EmployeeManagementAppException
 	 */
 	@GetMapping("/getByDesignation/{designation}")
